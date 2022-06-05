@@ -1,0 +1,6 @@
+export { default as Home } from './Home/Home.jsx'
+export { default as TopRated } from './TopRated/TopRated.jsx'
+export { default as Trending } from './Trending/Trending.jsx'
+export { default as Upcoming } from './Upcoming/Upcoming.jsx'
+export { default as Login } from './Login/Login.jsx'
+export { default as NotFound } from './NotFound/NotFound.jsx'

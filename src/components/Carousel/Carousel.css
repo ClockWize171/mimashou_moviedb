@@ -1,0 +1,22 @@
+.inner-carousel {
+  display: flex;
+}
+
+.carousel {
+  cursor: grab;
+  overflow: hidden;
+}
+
+.image {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+.vertical {
+  height: 11.5rem;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}

@@ -1,0 +1,17 @@
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 8vh;
+  z-index: 99999;
+}
+
+.mobile-navbar {
+  position: fixed;
+  right: 0;
+  left: 76vw;
+  bottom: 10vh;
+  width: 100%;
+  z-index: 99999;
+}
