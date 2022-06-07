@@ -5,7 +5,6 @@ import {
     Text,
     Image,
     Icon,
-    Flex
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -18,10 +17,9 @@ const Carousel = ({ title, movieUrl, linkUrl }) => {
     useEffect(() => {
         axios.get(movieUrl)
             .then((response) => {
-                setMovies(response.data.results)
+                setMovies(response.data.results.slice(0, 10))
             })
     }, [movieUrl])
-    console.log(movies)
 
     // Carousel Settings
     const [width, setWidth] = useState(0)
@@ -38,7 +36,7 @@ const Carousel = ({ title, movieUrl, linkUrl }) => {
     return (
         <Box pt={5}>
             <Box>
-                <Text pl={3} pb={3} fontWeight='bold' fontSize='xl'>
+                <Text _hover={{ textDecoration: 'underline' }} pl={3} pb={3} fontWeight='bold' fontSize='xl'>
                     <Link to={linkUrl}>
                         {title} <Icon w={4} h={4} as={FaArrowRight} />
                     </Link>
