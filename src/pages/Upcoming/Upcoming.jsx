@@ -16,7 +16,7 @@ const Upcoming = () => {
 
   return (
     <>
-      <MovieGrid data={upcoming} />
+      <MovieGrid data={upcoming} title={'Upcoming 🎬'} />
     </>
   )
 }

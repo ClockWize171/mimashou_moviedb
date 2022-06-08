@@ -6,14 +6,24 @@ import {
   Button,
   Image,
   ButtonGroup,
-  Container
+  Container,
 } from '@chakra-ui/react'
+import { FaHeart, FaClock } from "react-icons/fa";
+import ScrollTop from '../ScrollTop/ScrollTop';
 
-const MovieGrid = ({ data }) => {
+
+const MovieGrid = ({ data, title }) => {
   // console.log(trending)
   return (
     <Container pb='10vh' pt={5} maxW='container.xl'>
-      <SimpleGrid columns={[1, 2, 4]} spacing='40px'>
+      <ScrollTop />
+      <Box
+        p={3}
+        mb={5}
+        textAlign='center'>
+        <Text fontSize={['2xl']} fontWeight='black'>{title}</Text>
+      </Box>
+      <SimpleGrid columns={[1, 2, 3, 4]} spacing='40px'>
         {
           data.map((response) => (
 
@@ -27,9 +37,19 @@ const MovieGrid = ({ data }) => {
                   src={`https://image.tmdb.org/t/p/original/${response?.poster_path}`} />
               </Box>
               <Box align='center' pt={3}>
-                <ButtonGroup size={['sm', 'sm']} isAttached variant='outline'>
-                  <Button>Watch Later</Button>
-                  <Button>Favourite</Button>
+                <ButtonGroup size={['sm', 'sm']} isAttached>
+                  <Button
+                    leftIcon={<FaClock />}
+                    variant='outline'
+                    colorScheme='whatsapp'>
+                    Watch Later
+                  </Button>
+                  <Button
+                    rightIcon={<FaHeart />}
+                    variant='outline'
+                    colorScheme='red'>
+                    Favourite
+                  </Button>
                 </ButtonGroup>
               </Box>
               <Box

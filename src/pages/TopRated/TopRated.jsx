@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { MovieGrid } from '../../components'
 import axios from 'axios'
 import db_requests from '../../utils/dbrequest'
@@ -16,7 +16,8 @@ const TopRated = () => {
 
   return (
     <>
-      <MovieGrid data={topRated}/>
+
+      <MovieGrid data={topRated} title={'Top Rated ⭐'} />
     </>
   )
 }

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Text } from '@chakra-ui/react'
+import { Text, Container } from '@chakra-ui/react'
 
 const Search = () => {
     return (
-        <div>
-            <Text fontSize='xl' pt={5} textAlign='center'>Search Bar here.</Text>
-        </div>
+        <Container maxW='container.xl'>
+            <Text fontSize='xl' pt={5} textAlign='right'>Search Bar here.</Text>
+        </Container>
     )
 }
 

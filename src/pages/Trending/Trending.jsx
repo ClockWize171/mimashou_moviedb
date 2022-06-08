@@ -19,7 +19,7 @@ const Trending = () => {
 
   return (
     <>
-      <MovieGrid data={trending} />
+      <MovieGrid data={trending} title={'Trending 🔥'} />
     </>
   )
 }

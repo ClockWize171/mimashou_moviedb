@@ -35,7 +35,7 @@ const Carousel = ({ title, movieUrl, linkUrl }) => {
 
     return (
         <Box pt={5}>
-            <Box>
+            <Box w='160px'>
                 <Text _hover={{ textDecoration: 'underline' }} pl={3} pb={3} fontWeight='bold' fontSize='xl'>
                     <Link to={linkUrl}>
                         {title} <Icon w={4} h={4} as={FaArrowRight} />

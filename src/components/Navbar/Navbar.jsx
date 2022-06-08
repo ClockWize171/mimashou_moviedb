@@ -48,6 +48,7 @@ const Navbar = () => {
                   bg={isDark ? '#2D313D' : '#EDF2F6' }
                   w='50px'
                   h='50px'
+                  boxShadow="lg"
                   borderRadius='100vh'
                   as={Button}>
                   {isOpen ? <Icon mt={1} as={MdClose} /> : <Icon mt={2} as={GiHamburgerMenu} />}
