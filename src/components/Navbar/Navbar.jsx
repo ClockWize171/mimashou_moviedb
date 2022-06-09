@@ -58,6 +58,7 @@ const Navbar = () => {
                   <MenuItem><Link to='/top_rated'>Top Rated ⭐</Link></MenuItem>
                   <MenuItem><Link to='/upcoming'>Upcoming 🎬</Link></MenuItem>
                   <MenuItem><Link to='/login'>Login 👤</Link></MenuItem>
+                  <MenuItem><Link to='/about'>About 🌐</Link></MenuItem>
                 </MenuList>
               </>
             )}
@@ -101,14 +102,14 @@ const Navbar = () => {
               <Box
                 pl={paddinL}>
                 <Link to='/login'>
-                  <Button w='10vw' fontWeight='normal' fontSize={textSize}>Login 👤</Button>
+                  <Button w='10vw' fontWeight='normal' fontSize={textSize}>Login/account 👤</Button>
                 </Link>
               </Box>
               <Spacer />
 
               <Box
                 pl={paddinL}>
-                <Link to='/login'>
+                <Link to='/about'>
                   <Button w='10vw' fontWeight='normal' fontSize={textSize}>About 🌐</Button>
                 </Link>
               </Box>
