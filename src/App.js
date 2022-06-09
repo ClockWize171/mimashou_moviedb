@@ -1,5 +1,5 @@
 import './App.css';
-import { NotFound, Home, Trending, TopRated, Upcoming, Login, About } from './pages';
+import { NotFound, Home, Trending, TopRated, Upcoming, Login, About, Account } from './pages';
 import { Navbar, Search } from './components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
@@ -17,6 +17,7 @@ function App() {
           <Route path='/upcoming' element={<Upcoming />} />
           <Route path='/login' element={<Login />} />
           <Route path='/about' element={<About />} />
+          <Route path='/account' element={<Account />} />
         </Routes>
       </BrowserRouter>
     </>

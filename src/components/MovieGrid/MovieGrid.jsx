@@ -7,12 +7,17 @@ import {
   Image,
   ButtonGroup,
   Container,
+  useMediaQuery,
 } from '@chakra-ui/react'
 import { FaHeart, FaClock } from "react-icons/fa";
+import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import ScrollTop from '../ScrollTop/ScrollTop';
 
 
 const MovieGrid = ({ data, title }) => {
+
+  // Screen Size
+  const [isNotSmallerScreen] = useMediaQuery('(min-width: 479px)')
   // console.log(trending)
   return (
     <Container pb='10vh' pt={5} maxW='container.xl'>
@@ -67,6 +72,22 @@ const MovieGrid = ({ data, title }) => {
           ))
         }
       </SimpleGrid>
+      <Box pt={5} align='center'>
+        <Button
+          variant='outline'
+          w={['', '150px']}
+          mr='5vh'>
+          <AiFillCaretLeft /> 
+          {isNotSmallerScreen ? 'Previous' : null}
+          
+        </Button>
+        <Button
+          variant='outline'
+          w={['', '150px']}>
+          {isNotSmallerScreen ? 'Next' : null}
+          <AiFillCaretRight />
+        </Button>
+      </Box>
     </Container>
   )
 }
