@@ -14,11 +14,11 @@ import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import ScrollTop from '../ScrollTop/ScrollTop';
 
 
-const MovieGrid = ({ data, title }) => {
+const MovieGrid = ({ data, title, handleNext, handlePrevious, handleDisable }) => {
 
   // Screen Size
   const [isNotSmallerScreen] = useMediaQuery('(min-width: 479px)')
-  // console.log(trending)
+  // console.log(handlePrevious)
   return (
     <Container pb='10vh' pt={5} maxW='container.xl'>
       <ScrollTop />
@@ -74,14 +74,17 @@ const MovieGrid = ({ data, title }) => {
       </SimpleGrid>
       <Box pt={5} align='center'>
         <Button
+          onClick={handlePrevious}
+          isDisabled={handleDisable}
           variant='outline'
           w={['', '150px']}
           mr='5vh'>
-          <AiFillCaretLeft /> 
+          <AiFillCaretLeft />
           {isNotSmallerScreen ? 'Previous' : null}
-          
+
         </Button>
         <Button
+          onClick={handleNext}
           variant='outline'
           w={['', '150px']}>
           {isNotSmallerScreen ? 'Next' : null}
