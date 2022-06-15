@@ -4,8 +4,19 @@ import axios from 'axios'
 
 const Upcoming = () => {
 
+  function useLocalStorage(localItem) {
+    const [local, setState] = useState(localStorage.getItem(localItem))
+
+    console.log(local)
+    function setLoc(newItem) {
+      localStorage.setItem(localItem, newItem);
+      setState(JSON.parse(newItem))
+    }
+    return [local, setLoc]
+  }
+
   const [upcoming, setUpcoming] = useState([])
-  const [pageNum, setPageNum] = useState(1)
+  const [pageNum, setPageNum] = useLocalStorage('upcoming-page')
 
   const key = process.env.REACT_APP_TMDB_API_KEY
   const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US&page=${pageNum}`
@@ -18,8 +29,13 @@ const Upcoming = () => {
   }, [url])
 
   const handleNext = () => {
-    setPageNum(pageNum + 1)
-    window.scroll(0, 0)
+    if (pageNum === null) {
+      setPageNum(pageNum + 2)
+      window.scroll(0, 0)
+    } else {
+      setPageNum(pageNum - 1 + 2)
+      window.scroll(0, 0)
+    }
   }
 
   const handlePrevious = () => {
@@ -28,7 +44,7 @@ const Upcoming = () => {
   }
 
   const handleDisable = () => {
-    if (pageNum === 1) {
+    if (pageNum === null || pageNum === 1) {
       return true
     } else {
       return false

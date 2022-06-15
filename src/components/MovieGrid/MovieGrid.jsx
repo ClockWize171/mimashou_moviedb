@@ -10,6 +10,7 @@ import {
   useMediaQuery,
 } from '@chakra-ui/react'
 import { FaHeart, FaClock } from "react-icons/fa";
+import { Link } from 'react-router-dom'
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import ScrollTop from '../ScrollTop/ScrollTop';
 
@@ -18,7 +19,7 @@ const MovieGrid = ({ data, title, handleNext, handlePrevious, handleDisable }) =
 
   // Screen Size
   const [isNotSmallerScreen] = useMediaQuery('(min-width: 479px)')
-  // console.log(handlePrevious)
+  // console.log(data)
   return (
     <Container pb='10vh' pt={5} maxW='container.xl'>
       <ScrollTop />
@@ -26,12 +27,13 @@ const MovieGrid = ({ data, title, handleNext, handlePrevious, handleDisable }) =
         p={3}
         mb={5}
         textAlign='center'>
-        <Text fontSize={['2xl']} fontWeight='black'>{title}</Text>
+        <Text fontSize={['2xl']} fontWeight='black'>
+          {title}
+        </Text>
       </Box>
       <SimpleGrid columns={[1, 2, 3, 4]} spacing='40px'>
         {
           data.map((response) => (
-
             <Box h='100%' key={response.id}>
               <Box align="center">
                 <Image
@@ -39,7 +41,7 @@ const MovieGrid = ({ data, title, handleNext, handlePrevious, handleDisable }) =
                   borderRadius='md'
                   w={['70%', '80%']}
                   h={['22rem', '19rem']}
-                  src={`https://image.tmdb.org/t/p/original/${response?.poster_path}`} />
+                  src={`https://image.tmdb.org/t/p/w500/${response.poster_path}`} />
               </Box>
               <Box align='center' pt={3}>
                 <ButtonGroup size={['sm', 'sm']} isAttached>
@@ -64,7 +66,9 @@ const MovieGrid = ({ data, title, handleNext, handlePrevious, handleDisable }) =
                 <Text
                   fontSize={['md', 'lg']}
                   fontWeight='bold'>
-                  {response?.title ? response?.title : response?.name}
+                  <Link to={`/movie/${response.id}`}>
+                    {response?.title ? response?.title : response?.name}
+                  </Link>
                 </Text>
               </Box>
             </Box>
