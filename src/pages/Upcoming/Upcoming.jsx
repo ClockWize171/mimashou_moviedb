@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Spinner, Box } from '@chakra-ui/react'
 import { MovieGrid } from '../../components'
 import axios from 'axios'
 
@@ -16,6 +17,7 @@ const Upcoming = () => {
   }
 
   const [upcoming, setUpcoming] = useState([])
+  const [loading, setLoading] = useState(true)
   const [pageNum, setPageNum] = useLocalStorage('upcoming-page')
 
   const key = process.env.REACT_APP_TMDB_API_KEY
@@ -25,6 +27,8 @@ const Upcoming = () => {
     axios.get(url)
       .then((response) => {
         setUpcoming(response.data.results)
+        setLoading(false)
+
       })
   }, [url])
 
@@ -44,7 +48,7 @@ const Upcoming = () => {
   }
 
   const handleDisable = () => {
-    if (pageNum === null || pageNum === 1) {
+    if (pageNum === null || pageNum === 1 || pageNum === '1') {
       return true
     } else {
       return false
@@ -53,12 +57,19 @@ const Upcoming = () => {
 
   return (
     <>
-      <MovieGrid
-        data={upcoming}
-        title={'Upcoming 🎬'}
-        handleNext={handleNext}
-        handlePrevious={handlePrevious}
-        handleDisable={handleDisable()} />
+      {
+        loading ?
+          <Box mt={9} align='center'>
+            <Spinner size='xl' />
+          </Box>
+          :
+          <MovieGrid
+            data={upcoming}
+            title={'Upcoming 🎬'}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            handleDisable={handleDisable()} />}
+
     </>
   )
 }

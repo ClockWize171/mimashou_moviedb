@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Spinner, Box } from '@chakra-ui/react'
 import { MovieGrid } from '../../components'
 import axios from 'axios'
 
@@ -16,6 +17,7 @@ const TopRated = () => {
   }
 
   const [topRated, setTopRated] = useState([])
+  const [loading, setLoading] = useState(true)
   const [pageNum, setPageNum] = useLocalStorage('top-rate-page')
 
   const key = process.env.REACT_APP_TMDB_API_KEY
@@ -25,8 +27,11 @@ const TopRated = () => {
     axios.get(url)
       .then((response) => {
         setTopRated(response.data.results)
+        setLoading(false)
       })
   }, [url])
+
+  console.log(loading)
 
   const handleNext = () => {
     if (pageNum === null) {
@@ -44,7 +49,7 @@ const TopRated = () => {
   }
 
   const handleDisable = () => {
-    if (pageNum === null || pageNum === 1) {
+    if (pageNum === null || pageNum === 1 || pageNum === '1') {
       return true
     } else {
       return false
@@ -53,13 +58,20 @@ const TopRated = () => {
 
   return (
     <>
+      {
+        loading ?
+          <Box mt={9} align='center'>
+            <Spinner size='xl' />
+          </Box>
+          :
+          <MovieGrid
+            loading={loading}
+            data={topRated}
+            title={'Top Rated ⭐'}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            handleDisable={handleDisable()} />}
 
-      <MovieGrid
-        data={topRated}
-        title={'Top Rated ⭐'}
-        handleNext={handleNext}
-        handlePrevious={handlePrevious}
-        handleDisable={handleDisable()} />
     </>
   )
 }

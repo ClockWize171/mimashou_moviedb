@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { Spinner, Box } from '@chakra-ui/react'
 import { MovieGrid } from '../../components'
 import axios from 'axios'
 
 const Trending = () => {
 
+  // save the current page by local storage
   function useLocalStorage(localItem) {
     const [local, setState] = useState(localStorage.getItem(localItem))
-
-    console.log(local)
     function setLoc(newItem) {
       localStorage.setItem(localItem, newItem);
       setState(JSON.parse(newItem))
@@ -16,6 +16,8 @@ const Trending = () => {
   }
 
   const [trending, setTrending] = useState([])
+
+  const [loading, setLoading] = useState(true)
   const [pageNum, setPageNum] = useLocalStorage('trending-page')
 
   const key = process.env.REACT_APP_TMDB_API_KEY
@@ -26,6 +28,7 @@ const Trending = () => {
     axios.get(url)
       .then((response) => {
         setTrending(response.data.results)
+        setLoading(false)
       })
   }, [url])
 
@@ -46,7 +49,7 @@ const Trending = () => {
   }
 
   const handleDisable = () => {
-    if (pageNum === null || pageNum === 1) {
+    if (pageNum === null || pageNum === 1 || pageNum === '1') {
       return true
     } else {
       return false
@@ -55,13 +58,18 @@ const Trending = () => {
 
   return (
     <>
-      <MovieGrid
-        data={trending}
-        title={'Trending 🔥'}
-        handleNext={handleNext}
-        handlePrevious={handlePrevious}
-        handleDisable={handleDisable()}
-      />
+      {
+        loading ?
+          <Box mt={9} align='center'>
+            <Spinner size='xl' />
+          </Box>
+          :
+          <MovieGrid
+            data={trending}
+            title={'Trending 🔥'}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            handleDisable={handleDisable()} />}
     </>
   )
 }

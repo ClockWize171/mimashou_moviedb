@@ -5,7 +5,7 @@ import db_requests from '../../utils/dbrequest'
 const Home = () => {
   return (
     <>
-      <Carousel title="Trending 🔥" linkUrl='/trending' movieUrl={db_requests.requestTrending} />
+      <Carousel title="Trending 🔥" linkUrl='/trending' movieUrl={db_requests.requestPopular} />
       <Carousel title="Top Rated ⭐" linkUrl='/top_rated' movieUrl={db_requests.requestTopRated}  />
       <Carousel title="Upcoming 🎬" linkUrl='/upcoming' movieUrl={db_requests.requestUpcoming} />
     </>
