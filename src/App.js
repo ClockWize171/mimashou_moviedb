@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path='*' element={<NotFound />} />
           <Route exact path='/' element={<Home />} />
-          <Route path='/trending' element={<Trending />} />
+          <Route path='/popular' element={<Trending />} />
           <Route path='/top_rated' element={<TopRated />} />
           <Route path='/upcoming' element={<Upcoming />} />
           <Route path='/login' element={<Login />} />

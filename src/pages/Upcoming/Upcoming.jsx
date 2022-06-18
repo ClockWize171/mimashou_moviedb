@@ -8,7 +8,6 @@ const Upcoming = () => {
   function useLocalStorage(localItem) {
     const [local, setState] = useState(localStorage.getItem(localItem))
 
-    console.log(local)
     function setLoc(newItem) {
       localStorage.setItem(localItem, newItem);
       setState(JSON.parse(newItem))

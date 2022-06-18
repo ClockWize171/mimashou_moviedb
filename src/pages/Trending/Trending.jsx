@@ -21,7 +21,6 @@ const Trending = () => {
   const [pageNum, setPageNum] = useLocalStorage('trending-page')
 
   const key = process.env.REACT_APP_TMDB_API_KEY
-  // https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>&language=en-US&page=1
   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${key}&language=en-US&page=${pageNum}`
 
   useEffect(() => {
@@ -32,7 +31,6 @@ const Trending = () => {
       })
   }, [url])
 
-  // console.log(trending)
   const handleNext = () => {
     if (pageNum === null) {
       setPageNum(pageNum + 2)
@@ -66,7 +64,7 @@ const Trending = () => {
           :
           <MovieGrid
             data={trending}
-            title={'Trending 🔥'}
+            title={'Popular 🔥'}
             handleNext={handleNext}
             handlePrevious={handlePrevious}
             handleDisable={handleDisable()} />}
