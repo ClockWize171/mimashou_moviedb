@@ -1,4 +1,4 @@
-.wrapper {
+.cast_wrapper {
   height: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -13,18 +13,18 @@
   display: inline-block;
 }
 
-.wrapper::-webkit-scrollbar-track
+.cast_wrapper::-webkit-scrollbar-track
 {
 	background-color: #F5F5F5;
 }
 
-.wrapper::-webkit-scrollbar
+.cast_wrapper::-webkit-scrollbar
 {
 	height: 8px;
 	background-color: #F5F5F5;
 }
 
-.wrapper::-webkit-scrollbar-thumb
+.cast_wrapper::-webkit-scrollbar-thumb
 {
 	background-color: #575757;
 }

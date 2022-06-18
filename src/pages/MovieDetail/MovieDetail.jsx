@@ -47,15 +47,13 @@ const MovieDetail = () => {
       })
     axios.get(reviewsURL)
       .then((response) => {
-        setReviews(response.data.results)
+        setReviews(response.data.results.slice(0, 2))
       })
     axios.get(recommendationURL)
       .then((response) => {
         setRecommendation(response.data.results.slice(0, 10))
       })
   }, [contentURL, videoURL, creditURL, reviewsURL, recommendationURL])
-
-  console.log(reviews, recommendation)
 
   const trailer = `https://www.youtube.com/watch?v=${video}`
 
@@ -96,16 +94,19 @@ const MovieDetail = () => {
     };
   }
 
-  console.log(content)
+  // console.log(content)
 
   return (
     <Container pb='10vh' maxW='container.xl'>
+      {/* Backdrop Background Here */}
       <Box
         filter='auto'
         h='40vh'
         style={backgroundImage()}>
       </Box>
+      {/* Intro and Casts */}
       <SimpleGrid pt={5} columns={[1, null, 2]} spacing='40px'>
+        {/* Intro */}
         <Box>
           <Box>
             <Button
@@ -164,8 +165,9 @@ const MovieDetail = () => {
             <Text fontWeight='medium' pt={3}>{content.overview}</Text>
           </Box>
         </Box>
+        {/* Casts */}
         <Box>
-          <Box className='wrapper'>
+          <Box className='cast_wrapper'>
             {casts.map((cast) => (
               <Box key={cast.id} className='cast_lists'>
                 <Image
@@ -181,6 +183,32 @@ const MovieDetail = () => {
           </Box>
         </Box>
       </SimpleGrid>
+      <Box pt={5}>
+        <Text fontSize={['xl', '2xl']} fontWeight='bold'>Reviews from audiences</Text>
+        <SimpleGrid pt={5} columns={[1, null, 2]} spacing='40px'>
+          {reviews.map((review) => (
+            <Box borderWidth='2px' borderRadius='md' key={review.id}>
+              <HStack padding={2}>
+                <Box align='center'>
+                  <Image
+                    h='16rem'
+                    borderRadius='full'
+                    boxSize={['50px', '100px']}
+                    fallbackSrc='https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png'
+                    src={review?.author_details?.avatar_path && `https://image.tmdb.org/t/p/w500${review?.author_details?.avatar_path}`} />
+                  <Box pt={3}>
+                    <Text fontSize='sm' fontWeight='medium'>{review.author_details.username}</Text>
+                    {/* <Text fontSize='xs'>{review.created_at}</Text> */}
+                  </Box>
+                </Box>
+                <Box w='75%' ml={4} p={3}>
+                  <Text textAlign='left' noOfLines={8} fontSize='md'>{review.content}</Text>
+                </Box>
+              </HStack>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Box>
     </Container>
   )
 }
