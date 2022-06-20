@@ -64,7 +64,8 @@ const TopRated = () => {
           <MovieGrid
             loading={loading}
             data={topRated}
-            title={'Top Rated ⭐'}
+            title={'Top Rated'}
+            emoji={'⭐'}
             handleNext={handleNext}
             handlePrevious={handlePrevious}
             handleDisable={handleDisable()} />}

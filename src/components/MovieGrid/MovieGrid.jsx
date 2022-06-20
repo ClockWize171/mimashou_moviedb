@@ -15,7 +15,7 @@ import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import ScrollTop from '../ScrollTop/ScrollTop';
 
 
-const MovieGrid = ({ data, title, handleNext, handlePrevious, handleDisable }) => {
+const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisable }) => {
 
   // Screen Size
   const [isNotSmallerScreen] = useMediaQuery('(min-width: 479px)')
@@ -26,8 +26,8 @@ const MovieGrid = ({ data, title, handleNext, handlePrevious, handleDisable }) =
         p={3}
         mb={5}
         textAlign='center'>
-        <Text fontSize={['2xl']} fontWeight='black'>
-          {title}
+        <Text fontSize={['xl','2xl','3xl','4xl']} fontWeight='black'>
+          {emoji} {title} Movies {emoji}
         </Text>
       </Box>
       <SimpleGrid columns={[1, 2, 3, 4]} spacing='40px'>

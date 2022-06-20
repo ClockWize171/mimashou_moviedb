@@ -24,13 +24,12 @@ const MovieDetail = () => {
   const [video, setVideo] = useState([])
   const [casts, setCasts] = useState([])
   const [reviews, setReviews] = useState([])
-  const [recommendation, setRecommendation] = useState([])
+  const [noReviews, setNoReviews] = useState(false)
 
   const contentURL = `https://api.themoviedb.org/3/movie/${tmdbID}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
   const videoURL = `https://api.themoviedb.org/3/movie/${tmdbID}/videos?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
   const creditURL = `https://api.themoviedb.org/3/movie/${tmdbID}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
   const reviewsURL = `https://api.themoviedb.org/3/movie/${tmdbID}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`
-  const recommendationURL = `https://api.themoviedb.org/3/movie/${tmdbID}/recommendations?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`
 
   useEffect(() => {
     axios.get(contentURL)
@@ -41,23 +40,25 @@ const MovieDetail = () => {
       .then((response) => {
         setVideo(response.data.results[0].key)
       })
+      .catch(err => {
+        console.log('Error in key')
+      })
     axios.get(creditURL)
       .then((response) => {
         setCasts(response.data.cast.slice(0, 10))
       })
+
     axios.get(reviewsURL)
       .then((response) => {
-        setReviews(response.data.results.slice(0, 2))
+        if (response.data.results.length === 0) {
+          setNoReviews(true)
+        } else {
+          setReviews(response.data.results.slice(0, 2))
+        }
       })
-    axios.get(recommendationURL)
-      .then((response) => {
-        setRecommendation(response.data.results.slice(0, 10))
-      })
-  }, [contentURL, videoURL, creditURL, reviewsURL, recommendationURL])
+  }, [contentURL, videoURL, creditURL, reviewsURL])
 
-  const trailer = `https://www.youtube.com/watch?v=${video}`
-
-  // Money calculation function
+  // MONEY CALCULATION FOR REVENUE
   function MoneyFormat(labelValue) {
     // Nine Zeroes for Billions
     return Math.abs(Number(labelValue)) >= 1.0e+9
@@ -94,27 +95,27 @@ const MovieDetail = () => {
     };
   }
 
-  // console.log(content)
-
   return (
-    <Container pb='10vh' maxW='container.xl'>
+    <Container pb='10vh' pt={5} maxW='container.xl'>
       {/* Backdrop Background Here */}
       <Box
         filter='auto'
         h='40vh'
         style={backgroundImage()}>
       </Box>
+
       {/* Intro and Casts */}
       <SimpleGrid pt={5} columns={[1, null, 2]} spacing='40px'>
         {/* Intro */}
         <Box>
           <Box>
             <Button
+              isDisabled={video.length === 0 ? true : false}
               size={['sm', 'md']}
               variant='solid'
               colorScheme='red'
               leftIcon={<FaYoutube />}
-              onClick={() => window.open(trailer)}>
+              onClick={() => window.open(`https://www.youtube.com/watch?v=${video}`)}>
               Watch the Trailer
             </Button>
             <ButtonGroup
@@ -162,52 +163,76 @@ const MovieDetail = () => {
                 {content.revenue ? `$ ${MoneyFormat(content.revenue)}` : '<NO DATA>'}
               </Badge>
             </Text>
-            <Text fontWeight='medium' pt={3}>{content.overview}</Text>
+            <Text pt={3}>{content.overview}</Text>
           </Box>
         </Box>
+
         {/* Casts */}
         <Box>
-          <Box className='cast_wrapper'>
-            {casts.map((cast) => (
-              <Box key={cast.id} className='cast_lists'>
-                <Image
-                  h='16rem'
-                  fallbackSrc='https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png'
-                  src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`} />
-                <Box>
-                  <Text fontWeight='bold' fontSize='xl'>{cast.original_name}</Text> as
-                  <Text fontSize='sm' noOfLines={1}>{cast.character}</Text>
-                </Box>
-              </Box>
-            ))}
-          </Box>
+          {casts.length === 0 ?
+            <Text pt={5} align='center' fontSize='2xl' fontWeight='bold'>No Cast Avaliable</Text>
+            :
+            <Box className='cast_wrapper'>
+              <>
+                {
+                  casts.map((cast) => (
+                    <Box key={cast.id} className='cast_lists'>
+                      <Image
+                        h='16rem'
+                        fallbackSrc='https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png'
+                        src={`https://image.tmdb.org/t/p/w300${cast.profile_path}`} />
+                      <Box>
+                        <Text fontWeight='bold' fontSize='xl'>{cast.original_name}</Text> as
+                        <Text fontSize='sm' noOfLines={1}>{cast.character}</Text>
+                      </Box>
+                    </Box>
+                  ))
+                }
+              </>
+            </Box>
+          }
         </Box>
       </SimpleGrid>
+
+      {/* Reviews */}
       <Box pt={5}>
         <Text fontSize={['xl', '2xl']} fontWeight='bold'>Reviews from audiences</Text>
-        <SimpleGrid pt={5} columns={[1, null, 2]} spacing='40px'>
-          {reviews.map((review) => (
-            <Box borderWidth='2px' borderRadius='md' key={review.id}>
-              <HStack padding={2}>
-                <Box align='center'>
-                  <Image
-                    h='16rem'
-                    borderRadius='full'
-                    boxSize={['50px', '100px']}
-                    fallbackSrc='https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png'
-                    src={review?.author_details?.avatar_path && `https://image.tmdb.org/t/p/w500${review?.author_details?.avatar_path}`} />
-                  <Box pt={3}>
-                    <Text fontSize='sm' fontWeight='medium'>{review.author_details.username}</Text>
-                    {/* <Text fontSize='xs'>{review.created_at}</Text> */}
-                  </Box>
+        {
+          noReviews ?
+            <Text pt={3} fontSize={['lg', 'xl']}>No Users Review Yet!</Text>
+            :
+            <SimpleGrid pt={5} columns={[1, null, 2]} spacing='40px'>
+              {reviews.map((review) => (
+                <Box borderWidth='2px' borderRadius='md' key={review.id}>
+                  <HStack padding={2}>
+                    <Box align='center'>
+                      <Image
+                        h='16rem'
+                        borderRadius='full'
+                        boxSize={['50px', '100px']}
+                        fallbackSrc='https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png'
+                        src={`https://image.tmdb.org/t/p/w200${review?.author_details?.avatar_path}`} />
+                      <Box pt={3}>
+                        <Text fontSize='sm' fontWeight='medium'>{review.author_details.username}</Text>
+                        <Text fontSize='xs'>{review.created_at.split("T")[0]}</Text>
+                        {review.created_at !== review.updated_at
+                          ?
+                          <>
+                            <Text fontSize='xs' as='i'>(Edited)</Text>
+                          </>
+                          :
+                          null
+                        }
+                      </Box>
+                    </Box>
+                    <Box w='75%' ml={4} p={3}>
+                      <Text textAlign='left' noOfLines={10} fontSize='md'>{review.content}</Text>
+                    </Box>
+                  </HStack>
                 </Box>
-                <Box w='75%' ml={4} p={3}>
-                  <Text textAlign='left' noOfLines={8} fontSize='md'>{review.content}</Text>
-                </Box>
-              </HStack>
-            </Box>
-          ))}
-        </SimpleGrid>
+              ))}
+            </SimpleGrid>
+        }
       </Box>
     </Container>
   )

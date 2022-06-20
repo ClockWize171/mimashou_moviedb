@@ -64,7 +64,8 @@ const Trending = () => {
           :
           <MovieGrid
             data={trending}
-            title={'Popular 🔥'}
+            title={'Popular'}
+            emoji={'🔥'}
             handleNext={handleNext}
             handlePrevious={handlePrevious}
             handleDisable={handleDisable()} />}

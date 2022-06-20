@@ -64,7 +64,8 @@ const Upcoming = () => {
           :
           <MovieGrid
             data={upcoming}
-            title={'Upcoming 🎬'}
+            title={'Upcoming'}
+            emoji={'🎬'}
             handleNext={handleNext}
             handlePrevious={handlePrevious}
             handleDisable={handleDisable()} />}
