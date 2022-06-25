@@ -11,7 +11,7 @@ import {
   Account,
   MovieDetail
 } from './pages';
-import { Navbar, Search } from './components'
+import { Navbar, Search, ProtectedRoute } from './components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -29,7 +29,11 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/about' element={<About />} />
           <Route path='/search' element={<SearchPage />} />
-          <Route path='/account' element={<Account />} />
+          <Route path='/account' element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          } />
           <Route path='/movie/:tmdbID' element={<MovieDetail />} />
         </Routes>
       </BrowserRouter>

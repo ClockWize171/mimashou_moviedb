@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
     Input,
     FormControl,
     FormLabel,
-    FormErrorMessage,
     Button,
     Box,
     Text
@@ -15,7 +14,7 @@ import { UserAuth } from '../../context/AuthContext';
 const SignIn = () => {
 
     const navigate = useNavigate()
-    const { signIn } = UserAuth()
+    const { user, signIn, signInWithGoogle } = UserAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -31,6 +30,13 @@ const SignIn = () => {
             console.log(error.message)
         }
     }
+
+    useEffect(() => {
+      if(user != null){
+        navigate('/account')
+      }
+    }, [user, navigate])
+    
 
     return (
         <>
@@ -57,7 +63,7 @@ const SignIn = () => {
                         type='password' />
                     <Box mt={5}>
                         <Button type='submit' mr={5}>Sign in</Button>
-                        <Button leftIcon={<FaGoogle />} colorScheme='linkedin'>Sign in with Google</Button>
+                        <Button onClick={signInWithGoogle} leftIcon={<FaGoogle />} colorScheme='linkedin'>Sign in with Google</Button>
                     </Box>
                 </FormControl>
             </form>

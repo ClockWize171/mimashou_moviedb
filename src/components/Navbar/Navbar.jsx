@@ -17,14 +17,27 @@ import {
   useMediaQuery,
   useColorModeValue
 } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { RiMoonClearFill } from "react-icons/ri";
 import { HiLightBulb } from "react-icons/hi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
+import { UserAuth } from '../../context/AuthContext';
 import './Navbar.css'
 
 const Navbar = () => {
+
+  const { user, logOut } = UserAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    try {
+      await logOut()
+      navigate('/login')
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   // Common Variable
   const textSize = "md"
@@ -45,7 +58,7 @@ const Navbar = () => {
             {({ isOpen }) => (
               <>
                 <MenuButton
-                  bg={isDark ? '#2D313D' : '#EDF2F6' }
+                  bg={isDark ? '#2D313D' : '#EDF2F6'}
                   w='50px'
                   h='50px'
                   boxShadow="lg"
@@ -57,7 +70,10 @@ const Navbar = () => {
                   <MenuItem><Link to='/popular'>Popular 🔥</Link></MenuItem>
                   <MenuItem><Link to='/top_rated'>Top Rated ⭐</Link></MenuItem>
                   <MenuItem><Link to='/upcoming'>Upcoming 🎬</Link></MenuItem>
-                  <MenuItem><Link to='/login'>Login 👤</Link></MenuItem>
+                  {user ?
+                    <MenuItem onClick={handleLogout}>Logout 👤</MenuItem>
+                    :
+                    <MenuItem><Link to='/login'>Login 👤</Link></MenuItem>}
                   <MenuItem><Link to='/about'>About 🌐</Link></MenuItem>
                 </MenuList>
               </>
@@ -99,11 +115,17 @@ const Navbar = () => {
               </Box>
 
               <Spacer />
+
               <Box
                 pl={paddinL}>
-                <Link to='/login'>
-                  <Button w='10vw' fontWeight='normal' fontSize={textSize}>Login/account 👤</Button>
-                </Link>
+                {user ?
+                  <Button onClick={handleLogout} w='10vw' fontWeight='normal' fontSize={textSize}>Logout 👤</Button>
+                  :
+                  <Link to='/login'>
+                    <Button w='10vw' fontWeight='normal' fontSize={textSize}>Login 👤</Button>
+                  </Link>
+                }
+
               </Box>
               <Spacer />
 

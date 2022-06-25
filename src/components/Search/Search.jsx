@@ -9,22 +9,25 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa'
+import { UserAuth } from '../../context/AuthContext'
 
 const Search = () => {
+    const { user } = UserAuth()
     return (
         <Container mt={3} maxW='container.xl'>
             <Flex w='full'>
                 <Box>
-                    <Text fontSize='md' fontWeight='medium' mt={3}>
+                    <Text fontSize={['sm', 'md']} fontWeight='medium' mt={3}>
+                        {console.log(user)}
                         <Link to='/account'>
-                            Account Name
+                            {user ? user.email : 'Guest User'}
                         </Link>
                     </Text>
                 </Box>
                 <Spacer />
                 <Box>
                     <Link to='/search'>
-                        <Button colorScheme='linkedin' rightIcon={<FaSearch />} variant='outline'>
+                        <Button colorScheme='linkedin' size={['sm','md']} rightIcon={<FaSearch />} variant='outline'>
                             Search Movies ...
                         </Button>
                     </Link>
