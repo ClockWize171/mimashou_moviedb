@@ -59,7 +59,7 @@ const Carousel = ({ title, movieUrl, linkUrl }) => {
                                     w='full'
                                     h='20vh'
                                     className='image'
-                                    src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} />
+                                    src={`https://image.tmdb.org/t/p/w500/${movie?.backdrop_path}`} />
                                 <Text
                                     pr='0.5rem'
                                     pt='1rem'

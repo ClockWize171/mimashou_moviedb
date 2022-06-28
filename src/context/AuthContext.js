@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../utils/firebase";
+import { auth, db } from "../utils/firebase";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -8,14 +8,26 @@ import {
     signInWithPopup,
     GoogleAuthProvider
 } from 'firebase/auth'
+import { setDoc, doc } from 'firebase/firestore'
 
 const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
     const [user, setUser] = useState({})
+    const [error, setError] = useState('')
 
     function signUp(email, password) {
-        return createUserWithEmailAndPassword(auth, email, password);
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(
+                setDoc(doc(db, 'users', email), {
+                    favorite_shows: [],
+                    watchlater_shows: []
+                })
+            )
+            .catch((error) => {
+                setError(error.message)
+                console.log(error.message)
+            })
     }
 
     function signIn(email, password) {
@@ -25,12 +37,14 @@ export function AuthContextProvider({ children }) {
     function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
-            // .then((response) => {
-            //     console.log(response)
-            // })
-            // .catch((err) => {
-            //     console.log(err.message)
-            // })
+            .then((result) => {
+                // The signed-in user info.
+                const user = result.user;
+                setDoc(doc(db, 'users', user.email), {
+                    favorite_shows: [],
+                    watchlater_shows: []
+                });
+            })
     }
 
     function logOut() {
@@ -47,7 +61,7 @@ export function AuthContextProvider({ children }) {
     }, [])
 
 
-    const values = { signUp, signIn, user, logOut, signInWithGoogle }
+    const values = { signUp, signIn, user, error, logOut, signInWithGoogle }
 
     return (
         <AuthContext.Provider value={values}>

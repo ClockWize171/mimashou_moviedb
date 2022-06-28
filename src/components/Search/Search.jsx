@@ -18,7 +18,6 @@ const Search = () => {
             <Flex w='full'>
                 <Box>
                     <Text fontSize={['sm', 'md']} fontWeight='medium' mt={3}>
-                        {console.log(user)}
                         <Link to='/account'>
                             {user ? user.email : 'Guest User'}
                         </Link>

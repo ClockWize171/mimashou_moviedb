@@ -18,10 +18,13 @@ const SignIn = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
+        setLoading(true)
+        setTimeout(() => { setLoading(false) }, 3000);
         try {
             await signIn(email, password)
             navigate('/account')
@@ -32,11 +35,11 @@ const SignIn = () => {
     }
 
     useEffect(() => {
-      if(user != null){
-        navigate('/account')
-      }
+        if (user != null) {
+            navigate('/account')
+        }
     }, [user, navigate])
-    
+
 
     return (
         <>
@@ -62,7 +65,7 @@ const SignIn = () => {
                         id='signin_password'
                         type='password' />
                     <Box mt={5}>
-                        <Button type='submit' mr={5}>Sign in</Button>
+                        <Button type='submit' mr={5} isLoading={loading}>Sign in</Button>
                         <Button onClick={signInWithGoogle} leftIcon={<FaGoogle />} colorScheme='linkedin'>Sign in with Google</Button>
                     </Box>
                 </FormControl>

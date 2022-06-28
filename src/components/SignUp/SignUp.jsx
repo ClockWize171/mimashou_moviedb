@@ -14,27 +14,27 @@ import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
 
+    const { signUp, error } = UserAuth()
+    const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [error, setError] = useState('')
-    const navigate = useNavigate()
-    const { signUp } = UserAuth()
+    const [loading, setLoading] = useState(false)
 
     const isError = password !== confirmPassword
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        setLoading(true)
+        setTimeout(() => { setLoading(false) }, 3000);
+        e.preventDefault()
         if (password !== confirmPassword) {
-            return null;
+            return null
         } else {
             try {
                 await signUp(email, password)
                 navigate('/account')
-
             } catch (error) {
                 console.log(error.message)
-                setError(error.message)
             }
         }
     }
@@ -42,13 +42,14 @@ const SignUp = () => {
     return (
         <>
             <Text mb={8} fontSize='3xl' fontWeight='bold'>Sign Up</Text>
-            <form action="" onSubmit={handleSubmit}>
+            <form action='' onSubmit={handleSubmit}>
                 {error ?
                     <Box p={2} borderWidth='2px' borderColor='red.300'>
                         <Text color='red.400'>{error.split(":")[1]}</Text>
                     </Box>
                     :
-                    null}
+                    null
+                }
                 <FormLabel pt={5} htmlFor='email'>Email address:</FormLabel>
                 <Input
                     onChange={(e) => setEmail(e.target.value)}
@@ -74,7 +75,7 @@ const SignUp = () => {
                         null
                     }
                     <Box mt={5}>
-                        <Button type='submit' mr={5}>Sign Up</Button>
+                        <Button isLoading={loading} type='submit' mr={5}>Sign Up</Button>
                     </Box>
                 </FormControl>
             </form>

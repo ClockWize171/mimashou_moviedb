@@ -14,8 +14,8 @@ import { WatchLater, Favorite } from '../../components'
 
 const Account = () => {
     return (
-        <Container mt={5} maxW='container.lg'>
-            <Text fontSize={['2xl', '3xl']} fontWeight='bold'>Your Saved Shows:</Text>
+        <Container pb='10vh' mt={5} maxW='container.xl'>
+            <Text fontSize={['2xl', '3xl']} fontWeight='bold'>Your Saved Movies:</Text>
             <Tabs
                 mt='2vh'
                 isLazy

@@ -5,15 +5,12 @@ import {
   Text,
   Button,
   Image,
-  ButtonGroup,
   Container,
   useMediaQuery,
 } from '@chakra-ui/react'
-import { FaHeart, FaClock } from "react-icons/fa";
 import { Link } from 'react-router-dom'
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import ScrollTop from '../ScrollTop/ScrollTop';
-
 
 const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisable }) => {
 
@@ -26,7 +23,7 @@ const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisab
         p={3}
         mb={5}
         textAlign='center'>
-        <Text fontSize={['xl','2xl','3xl','4xl']} fontWeight='black'>
+        <Text fontSize={['xl', '2xl', '3xl', '4xl']} fontWeight='black'>
           {emoji} {title} Movies {emoji}
         </Text>
       </Box>
@@ -41,22 +38,6 @@ const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisab
                   w={['70%', '80%']}
                   h={['22rem', '19rem']}
                   src={`https://image.tmdb.org/t/p/w500/${response.poster_path}`} />
-              </Box>
-              <Box align='center' pt={3}>
-                <ButtonGroup size={['sm', 'sm']} isAttached>
-                  <Button
-                    leftIcon={<FaClock />}
-                    variant='outline'
-                    colorScheme='whatsapp'>
-                    Watch Later
-                  </Button>
-                  <Button
-                    rightIcon={<FaHeart />}
-                    variant='outline'
-                    colorScheme='red'>
-                    Favourite
-                  </Button>
-                </ButtonGroup>
               </Box>
               <Box
                 _hover={{ textDecoration: 'underline' }}
