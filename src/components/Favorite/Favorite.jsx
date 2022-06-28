@@ -16,6 +16,7 @@ import { updateDoc, doc, onSnapshot } from 'firebase/firestore'
 const Favorite = () => {
   const { user } = UserAuth()
   const [loading, setLoading] = useState(true)
+  const [buttonLoading, setButtonLoading] = useState(false)
   const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
@@ -28,14 +29,19 @@ const Favorite = () => {
   const movieRef = doc(db, 'users', `${user?.email}`)
 
   const deleteFavorite = async (id) => {
-    try {
-      const result = favorites.filter((item) => item.id !== id)
-      await updateDoc(movieRef, {
-        favorite_shows: result,
-      })
-    } catch (error) {
-      console.log(error.message)
-    }
+    setButtonLoading(true)
+    setTimeout(() => {
+      setButtonLoading(false)
+      try {
+        const result = favorites.filter((item) => item.id !== id)
+        updateDoc(movieRef, {
+          favorite_shows: result,
+        })
+      } catch (error) {
+        console.log(error.message)
+      }
+    }, 500)
+
   }
 
   return (
@@ -59,6 +65,7 @@ const Favorite = () => {
                     h={['22rem', '19rem']}
                     src={`https://image.tmdb.org/t/p/w500/${data.img}`} />
                   <Button
+                    isLoading={buttonLoading}
                     onClick={() => deleteFavorite(data.id)}
                     borderTopRadius='none'
                     leftIcon={<FaTrashAlt />}

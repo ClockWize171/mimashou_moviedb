@@ -5,7 +5,7 @@ import { db } from '../../utils/firebase'
 import {
   Spinner,
   SimpleGrid,
-  Box, 
+  Box,
   Image,
   Text,
   Button,
@@ -18,6 +18,7 @@ const WatchLater = () => {
   const { user } = UserAuth()
   const [watchLater, setWatchLater] = useState([])
   const [loading, setLoading] = useState(true)
+  const [buttonLoading, setButtonLoading] = useState(false)
 
   useEffect(() => {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
@@ -29,14 +30,19 @@ const WatchLater = () => {
   const movieRef = doc(db, 'users', `${user?.email}`)
 
   const deleteWatchLater = async (id) => {
-    try {
-      const result = watchLater.filter((item) => item.id !== id)
-      await updateDoc(movieRef, {
-        watchlater_shows: result,
-      })
-    } catch (error) {
-      console.log(error.message)
-    }
+    setButtonLoading(true)
+    setTimeout(() => {
+      setButtonLoading(false)
+      try {
+        const result = watchLater.filter((item) => item.id !== id)
+        updateDoc(movieRef, {
+          watchlater_shows: result,
+        })
+      } catch (error) {
+        console.log(error.message)
+      }
+    }, 500)
+
   }
 
   return (
@@ -60,6 +66,7 @@ const WatchLater = () => {
                     h={['22rem', '19rem']}
                     src={`https://image.tmdb.org/t/p/w500/${data.img}`} />
                   <Button
+                    isLoading={buttonLoading}
                     onClick={() => deleteWatchLater(data.id)}
                     borderTopRadius='none'
                     leftIcon={<FaTrashAlt />}

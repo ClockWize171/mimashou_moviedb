@@ -15,8 +15,11 @@ const AuthContext = createContext();
 export function AuthContextProvider({ children }) {
     const [user, setUser] = useState({})
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
     function signUp(email, password) {
+        setLoading(true)
+        setTimeout(() => { setLoading(false) }, 3000);
         createUserWithEmailAndPassword(auth, email, password)
             .then(
                 setDoc(doc(db, 'users', email), {
@@ -61,7 +64,7 @@ export function AuthContextProvider({ children }) {
     }, [])
 
 
-    const values = { signUp, signIn, user, error, logOut, signInWithGoogle }
+    const values = { signUp, signIn, user, error, logOut, signInWithGoogle, loading }
 
     return (
         <AuthContext.Provider value={values}>

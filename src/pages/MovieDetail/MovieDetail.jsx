@@ -192,8 +192,6 @@ const MovieDetail = () => {
     var watchLaterCondition = [];
   }
 
-
-
   return (
     <Container pb='10vh' pt={5} maxW='container.xl'>
       {/* Backdrop Background Here */}

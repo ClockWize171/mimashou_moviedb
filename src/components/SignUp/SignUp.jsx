@@ -14,18 +14,14 @@ import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
 
-    const { signUp, error } = UserAuth()
+    const { signUp, error, loading } = UserAuth()
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [loading, setLoading] = useState(false)
-
-    const isError = password !== confirmPassword
-
+    var isError = password !== confirmPassword
+    
     const handleSubmit = async (e) => {
-        setLoading(true)
-        setTimeout(() => { setLoading(false) }, 3000);
         e.preventDefault()
         if (password !== confirmPassword) {
             return null
@@ -33,6 +29,7 @@ const SignUp = () => {
             try {
                 await signUp(email, password)
                 navigate('/account')
+
             } catch (error) {
                 console.log(error.message)
             }
@@ -42,7 +39,7 @@ const SignUp = () => {
     return (
         <>
             <Text mb={8} fontSize='3xl' fontWeight='bold'>Sign Up</Text>
-            <form action='' onSubmit={handleSubmit}>
+            <form action="" onSubmit={handleSubmit}>
                 {error ?
                     <Box p={2} borderWidth='2px' borderColor='red.300'>
                         <Text color='red.400'>{error.split(":")[1]}</Text>
@@ -75,6 +72,7 @@ const SignUp = () => {
                         null
                     }
                     <Box mt={5}>
+                        {console.log(loading)}
                         <Button isLoading={loading} type='submit' mr={5}>Sign Up</Button>
                     </Box>
                 </FormControl>
