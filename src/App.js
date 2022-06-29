@@ -11,7 +11,7 @@ import {
   Account,
   MovieDetail
 } from './pages';
-import { Navbar, Search, ProtectedRoute } from './components'
+import { Navbar, Search, ProtectedRoute, Footer } from './components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
           } />
           <Route path='/movie/:tmdbID' element={<MovieDetail />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

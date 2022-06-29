@@ -72,7 +72,6 @@ const SignUp = () => {
                         null
                     }
                     <Box mt={5}>
-                        {console.log(loading)}
                         <Button isLoading={loading} type='submit' mr={5}>Sign Up</Button>
                     </Box>
                 </FormControl>

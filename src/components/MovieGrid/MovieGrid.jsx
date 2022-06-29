@@ -17,7 +17,7 @@ const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisab
   // Screen Size
   const [isNotSmallerScreen] = useMediaQuery('(min-width: 479px)')
   return (
-    <Container pb='10vh' pt={5} maxW='container.xl'>
+    <Container pt={5} maxW='container.xl'>
       <ScrollTop />
       <Box
         p={3}

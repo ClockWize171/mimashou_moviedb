@@ -193,7 +193,7 @@ const MovieDetail = () => {
   }
 
   return (
-    <Container pb='10vh' pt={5} maxW='container.xl'>
+    <Container pt={5} maxW='container.xl'>
       {/* Backdrop Background Here */}
       <Box
         filter='auto'
@@ -303,8 +303,14 @@ const MovieDetail = () => {
                     <Box key={cast.id} className='cast_lists'>
                       <Image
                         h='16rem'
-                        fallbackSrc='https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png'
-                        src={`https://image.tmdb.org/t/p/w300${cast.profile_path}`} />
+                        src={
+                          cast.profile_path === null || cast.profile_path === undefined ?
+                            'https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png'
+                            :
+                            `https://image.tmdb.org/t/p/w300${cast.profile_path}`
+                        }
+
+                      />
                       <Box>
                         <Text fontWeight='bold' fontSize='xl'>{cast.original_name}</Text> as
                         <Text fontSize='sm' noOfLines={1}>{cast.character}</Text>
@@ -334,8 +340,8 @@ const MovieDetail = () => {
                         h='16rem'
                         borderRadius='full'
                         boxSize={['50px', '100px']}
-                        fallbackSrc='https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png'
-                        src={`https://image.tmdb.org/t/p/w200${review?.author_details?.avatar_path}`} />
+                        src={`https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_960_720.png`}
+                      />
                       <Box pt={3}>
                         <Text fontSize='sm' fontWeight='medium'>{review.author_details.username}</Text>
                         <Text fontSize='xs'>{review.created_at.split("T")[0]}</Text>
@@ -350,7 +356,7 @@ const MovieDetail = () => {
                       </Box>
                     </Box>
                     <Box w='75%' ml={4} p={3}>
-                      <Text textAlign='left' noOfLines={10} fontSize='md'>{review.content}</Text>
+                      <Text textAlign='left' noOfLines={10} fontSize={['sm', 'md']}>{review.content}</Text>
                     </Box>
                   </HStack>
                 </Box>
