@@ -66,6 +66,7 @@ const Trending = () => {
             data={trending}
             title={'Popular'}
             emoji={'🔥'}
+            currentPage={pageNum}
             handleNext={handleNext}
             handlePrevious={handlePrevious}
             handleDisable={handleDisable()} />}

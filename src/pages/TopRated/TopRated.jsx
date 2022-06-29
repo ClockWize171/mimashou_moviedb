@@ -66,6 +66,7 @@ const TopRated = () => {
             data={topRated}
             title={'Top Rated'}
             emoji={'⭐'}
+            currentPage={pageNum}
             handleNext={handleNext}
             handlePrevious={handlePrevious}
             handleDisable={handleDisable()} />}

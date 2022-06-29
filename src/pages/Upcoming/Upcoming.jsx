@@ -66,6 +66,7 @@ const Upcoming = () => {
             data={upcoming}
             title={'Upcoming'}
             emoji={'🎬'}
+            currentPage={pageNum}
             handleNext={handleNext}
             handlePrevious={handlePrevious}
             handleDisable={handleDisable()} />}

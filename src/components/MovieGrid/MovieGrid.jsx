@@ -7,12 +7,20 @@ import {
   Image,
   Container,
   useMediaQuery,
+  Tag
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import ScrollTop from '../ScrollTop/ScrollTop';
 
-const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisable }) => {
+const MovieGrid = ({
+  data,
+  title,
+  emoji,
+  currentPage,
+  handleNext,
+  handlePrevious,
+  handleDisable }) => {
 
   // Screen Size
   const [isNotSmallerScreen] = useMediaQuery('(min-width: 479px)')
@@ -21,23 +29,29 @@ const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisab
       <ScrollTop />
       <Box
         p={3}
-        mb={5}
         textAlign='center'>
         <Text fontSize={['xl', '2xl', '3xl', '4xl']} fontWeight='black'>
           {emoji} {title} Movies {emoji}
         </Text>
       </Box>
-      <SimpleGrid columns={[1, 2, 3, 4]} spacing='40px'>
+      <Box align='center' pb={5}>
+        <Tag colorScheme='teal' variant='outline' size={['md', 'lg']}>Current Page: ({currentPage})</Tag>
+      </Box>
+      <SimpleGrid columns={[1, 2, 3, 4]} spacing='20px'>
         {
           data.map((response) => (
             <Box h='100%' key={response.id}>
               <Box align="center">
                 <Image
-                  fallbackSrc='https://via.placeholder.com/240x360'
                   borderRadius='md'
                   w={['70%', '80%']}
-                  h={['22rem', '19rem']}
-                  src={`https://image.tmdb.org/t/p/w500/${response.poster_path}`} />
+                  h={['22rem', '21.5rem']}
+                  src={
+                    response.poster_path === null || response.poster_path === undefined ?
+                      'https://via.placeholder.com/240x360'
+                      :
+                      `https://image.tmdb.org/t/p/w500/${response.poster_path}`
+                  } />
               </Box>
               <Box
                 _hover={{ textDecoration: 'underline' }}
@@ -52,7 +66,6 @@ const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisab
                 </Text>
               </Box>
             </Box>
-
           ))
         }
       </SimpleGrid>
@@ -65,7 +78,6 @@ const MovieGrid = ({ data, title, emoji, handleNext, handlePrevious, handleDisab
           mr='5vh'>
           <AiFillCaretLeft />
           {isNotSmallerScreen ? 'Previous' : null}
-
         </Button>
         <Button
           onClick={handleNext}
