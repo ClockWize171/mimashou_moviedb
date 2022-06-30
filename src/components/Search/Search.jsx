@@ -17,7 +17,7 @@ const Search = () => {
         <Container mt={3} maxW='container.xl'>
             <Flex w='full'>
                 <Box>
-                    <Text fontSize={['sm', 'md']} fontWeight='medium' mt={3}>
+                    <Text textDecoration='underline' fontSize={['sm', 'md']} fontWeight='medium' mt={3}>
                         <Link to='/account'>
                             {user ? user.email : 'Guest User'}
                         </Link>
