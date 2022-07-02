@@ -73,8 +73,8 @@ const Navbar = () => {
                   {user ?
                     <MenuItem onClick={handleLogout}>Logout 👤</MenuItem>
                     :
-                    <MenuItem><Link to='/login'>Login 👤</Link></MenuItem>}
-                  <MenuItem><Link to='/about'>About 🌐</Link></MenuItem>
+                    <Link to='/login'><MenuItem>Login 👤</MenuItem></Link>}
+                    <Link to='/about'><MenuItem>About 🌐</MenuItem></Link>
                 </MenuList>
               </>
             )}
