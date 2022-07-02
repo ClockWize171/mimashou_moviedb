@@ -7,14 +7,6 @@
   overflow: hidden;
 }
 
-.image {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-}
-
 .vertical {
   height: 11.5rem;
   writing-mode: vertical-rl;

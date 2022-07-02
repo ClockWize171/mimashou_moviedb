@@ -15,17 +15,17 @@
 
 .cast_wrapper::-webkit-scrollbar-track
 {
-	background-color: #F5F5F5;
+	background-color: #f5f5f56b;
 }
 
 .cast_wrapper::-webkit-scrollbar
 {
 	height: 8px;
-	background-color: #F5F5F5;
+	background-color: #0000006b;
 }
 
 .cast_wrapper::-webkit-scrollbar-thumb
 {
-	background-color: #575757;
+	background-color: #4e4c4cfa;
 }
 

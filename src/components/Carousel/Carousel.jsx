@@ -36,44 +36,70 @@ const Carousel = ({ title, movieUrl, linkUrl }) => {
     return (
         <Box pt={5}>
             <Box w='160px'>
-                <Text _hover={{ textDecoration: 'underline' }} pl={3} pb={3} fontWeight='bold' fontSize='xl'>
+                <Text _hover={{ textDecoration: 'underline' }} pl={3} pb={3} fontWeight='bold' fontSize={['xl']}>
                     <Link to={linkUrl}>
                         {title} <Icon w={4} h={4} as={FaArrowRight} />
                     </Link>
                 </Text>
             </Box>
-            <motion.div
-                ref={carousel}
-                className='carousel'
-                whileTap={{ cursor: "grabbing" }}>
+            <Box>
                 <motion.div
-                    drag="x"
-                    dragConstraints={{ right: 0, left: -width }}
-                    className="inner-carousel">
-                    {
-                        movies.map((movie, id) => (
-                            <React.Fragment key={id}>
-                                <Image
-                                    fallbackSrc='https://via.placeholder.com/360x240'
-                                    pl={2}
-                                    w='full'
-                                    h='20vh'
-                                    className='image'
-                                    src={`https://image.tmdb.org/t/p/w500/${movie?.backdrop_path}`} />
-                                <Text
-                                    pr='0.5rem'
-                                    pt='1rem'
-                                    fontWeight='bold'
-                                    fontSize={['sm', 'md']}
-                                    className='vertical'>
-                                    {movie?.title ? movie?.title : movie?.name}
-                                </Text>
-                            </React.Fragment>
-                        ))
-                    }
+                    ref={carousel}
+                    className='carousel'
+                    whileTap={{ cursor: "grabbing" }}>
+                    <motion.div
+                        drag="x"
+                        dragConstraints={{ right: 0, left: -width }}
+                        className="inner-carousel">
+                        {
+                            movies.map((movie, id) => (
+                                <Box key={id}>
+                                    <Box pl={5}>
+                                        <Image
+                                            fallbackSrc='https://via.placeholder.com/240'
+                                            w="full"
+                                            h="12rem"
+                                            style={{
+                                                minWidth: "20rem",
+                                                minHeight: "12rem",
+                                                pointerEvents: "none"
+                                            }}
+                                            src={`https://image.tmdb.org/t/p/w500/${movie?.backdrop_path}`}></Image>
+                                    </Box>
+                                    <Text pt={4} fontWeight='semibold' textAlign='center'>
+                                        {movie?.title ? movie?.title : movie?.name}
+                                    </Text>
+                                    {/* <Image
+                                        fallbackSrc='https://via.placeholder.com/360x240'
+                                        pl={2}
+                                        w="full"
+                                        h="12rem"
+                                        style={{
+                                            minWidth: "12rem",
+                                            minHeight: "12rem",
+                                            pointerEvents: "none"
+                                        }}
+                                        className='image'
+                                        src={`https://image.tmdb.org/t/p/w500/${movie?.backdrop_path}`} />
+                                    <Text fontWeight='semibold' textAlign='center'>
+                                        {movie?.title ? movie?.title : movie?.name}
+                                    </Text> */}
+                                    {/* <Text
+                                        pr='0.5rem'
+                                        pt='1rem'
+                                        fontWeight='bold'
+                                        fontSize={['sm', 'md']}
+                                        className='vertical'>
+                                        {movie?.title ? movie?.title : movie?.name}
+                                    </Text> */}
+                                </Box>
+                            ))
+                        }
 
+                    </motion.div>
                 </motion.div>
-            </motion.div>
+            </Box>
+
         </Box>
     )
 }

@@ -206,60 +206,66 @@ const MovieDetail = () => {
         {/* Intro */}
         <Box>
           <Box>
-            <Button
-              isDisabled={video.length === 0 ? true : false}
-              size={['sm', 'md']}
-              variant='solid'
-              colorScheme='red'
-              leftIcon={<FaYoutube />}
-              onClick={() => window.open(`https://www.youtube.com/watch?v=${video}`)}>
-              Watch the Trailer
-            </Button>
-            <ButtonGroup
-              mt={2}
-              float='right'
-              size={['xs', 'sm']}
-              isAttached>
-              {watchLaterCondition.length === 0 ?
+            <SimpleGrid columns={[1, null, 2]} spacing='10px'>
+              <Box>
                 <Button
-                  isLoading={watchLaterLoading}
-                  onClick={saveWatchLater}
-                  leftIcon={<FaClock />}
-                  variant='outline'
-                  colorScheme='whatsapp'>
-                  Watch Later
-                </Button>
-                :
-                <Button
-                  isLoading={watchLaterLoading}
-                  onClick={() => deleteWatchLater(content.id)}
-                  leftIcon={<FaClock />}
+                  isDisabled={video.length === 0 ? true : false}
+                  size={['md']}
                   variant='solid'
-                  colorScheme='whatsapp'>
-                  Watch Later
+                  colorScheme='red'
+                  leftIcon={<FaYoutube />}
+                  onClick={() => window.open(`https://www.youtube.com/watch?v=${video}`)}>
+                  Watch the Trailer
                 </Button>
-              }
-              {favoriteCondition.length === 0 ?
-                <Button
-                  isLoading={favoriteLoading}
-                  onClick={saveFavorite}
-                  rightIcon={<FaHeart />}
-                  variant='outline'
-                  colorScheme='red'>
-                  Favourite
-                </Button>
-                :
-                <Button
-                  isLoading={favoriteLoading}
-                  onClick={() => deleteFavorite(content.id)}
-                  leftIcon={<FaHeart />}
-                  variant='solid'
-                  colorScheme='red'>
-                  Favourite
-                </Button>
-              }
+              </Box>
+              <Box>
+                <ButtonGroup
+                  size={['sm']}
+                  isAttached>
+                  {watchLaterCondition.length === 0 ?
+                    <Button
+                      isLoading={watchLaterLoading}
+                      onClick={saveWatchLater}
+                      leftIcon={<FaClock />}
+                      variant='outline'
+                      colorScheme='whatsapp'>
+                      Watch Later
+                    </Button>
+                    :
+                    <Button
+                      isLoading={watchLaterLoading}
+                      onClick={() => deleteWatchLater(content.id)}
+                      leftIcon={<FaClock />}
+                      variant='solid'
+                      colorScheme='whatsapp'>
+                      Watch Later
+                    </Button>
+                  }
+                  {favoriteCondition.length === 0 ?
+                    <Button
+                      isLoading={favoriteLoading}
+                      onClick={saveFavorite}
+                      rightIcon={<FaHeart />}
+                      variant='outline'
+                      colorScheme='red'>
+                      Favourite
+                    </Button>
+                    :
+                    <Button
+                      isLoading={favoriteLoading}
+                      onClick={() => deleteFavorite(content.id)}
+                      leftIcon={<FaHeart />}
+                      variant='solid'
+                      colorScheme='red'>
+                      Favourite
+                    </Button>
+                  }
 
-            </ButtonGroup>
+                </ButtonGroup>
+              </Box>
+            </SimpleGrid>
+
+
           </Box>
           <Box pt={3}>
             <Text fontSize={['xl', '2xl']} fontWeight='bold'>{content.title}</Text>
