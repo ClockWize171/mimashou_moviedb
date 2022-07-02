@@ -35,7 +35,7 @@ const MovieGrid = ({
         </Text>
       </Box>
       <Box align='center' pb={5}>
-        <Tag colorScheme='teal' variant='outline' size={['md', 'lg']}>Current Page: ({currentPage})</Tag>
+        <Tag colorScheme='teal' variant='outline' size={['md', 'lg']}>Current Page: ({currentPage ? currentPage : '1'})</Tag>
       </Box>
       <SimpleGrid columns={[1, 2, 3, 4]} spacing='20px'>
         {
