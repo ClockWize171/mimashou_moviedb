@@ -5,6 +5,7 @@ import {
     Text,
     Image,
     Icon,
+    Spinner
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -13,11 +14,13 @@ import './Carousel.css'
 
 const Carousel = ({ title, movieUrl, linkUrl }) => {
     const [movies, setMovies] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         axios.get(movieUrl)
             .then((response) => {
                 setMovies(response.data.results.slice(0, 10))
+                setLoading(false)
             })
     }, [movieUrl])
 
@@ -43,61 +46,45 @@ const Carousel = ({ title, movieUrl, linkUrl }) => {
                 </Text>
             </Box>
             <Box>
-                <motion.div
-                    ref={carousel}
-                    className='carousel'
-                    whileTap={{ cursor: "grabbing" }}>
+                {loading ?
+                    <Box align='center'>
+                        <Spinner size={['lg', 'xl']} />
+                    </Box>
+                    :
                     <motion.div
-                        drag="x"
-                        dragConstraints={{ right: 0, left: -width }}
-                        className="inner-carousel">
-                        {
-                            movies.map((movie, id) => (
-                                <Box key={id}>
-                                    <Box pl={5}>
-                                        <Image
-                                            fallbackSrc='https://via.placeholder.com/240'
-                                            w="full"
-                                            h="12rem"
-                                            style={{
-                                                minWidth: "20rem",
-                                                minHeight: "12rem",
-                                                pointerEvents: "none"
-                                            }}
-                                            src={`https://image.tmdb.org/t/p/w500/${movie?.backdrop_path}`}></Image>
+                        ref={carousel}
+                        className='carousel'
+                        whileTap={{ cursor: "grabbing" }}>
+                        <motion.div
+                            drag="x"
+                            dragConstraints={{ right: 0, left: -width }}
+                            className="inner-carousel">
+                            {
+                                movies.map((movie, id) => (
+                                    <Box key={id}>
+                                        <Box pl={5}>
+                                            <Image
+                                                fallbackSrc='https://via.placeholder.com/240'
+                                                w="full"
+                                                h="12rem"
+                                                style={{
+                                                    minWidth: "20rem",
+                                                    minHeight: "12rem",
+                                                    pointerEvents: "none"
+                                                }}
+                                                src={`https://image.tmdb.org/t/p/w500/${movie?.backdrop_path}`}></Image>
+                                        </Box>
+                                        <Text pt={4} fontWeight='semibold' textAlign='center'>
+                                            {movie?.title ? movie?.title : movie?.name}
+                                        </Text>
                                     </Box>
-                                    <Text pt={4} fontWeight='semibold' textAlign='center'>
-                                        {movie?.title ? movie?.title : movie?.name}
-                                    </Text>
-                                    {/* <Image
-                                        fallbackSrc='https://via.placeholder.com/360x240'
-                                        pl={2}
-                                        w="full"
-                                        h="12rem"
-                                        style={{
-                                            minWidth: "12rem",
-                                            minHeight: "12rem",
-                                            pointerEvents: "none"
-                                        }}
-                                        className='image'
-                                        src={`https://image.tmdb.org/t/p/w500/${movie?.backdrop_path}`} />
-                                    <Text fontWeight='semibold' textAlign='center'>
-                                        {movie?.title ? movie?.title : movie?.name}
-                                    </Text> */}
-                                    {/* <Text
-                                        pr='0.5rem'
-                                        pt='1rem'
-                                        fontWeight='bold'
-                                        fontSize={['sm', 'md']}
-                                        className='vertical'>
-                                        {movie?.title ? movie?.title : movie?.name}
-                                    </Text> */}
-                                </Box>
-                            ))
-                        }
+                                ))
+                            }
 
+                        </motion.div>
                     </motion.div>
-                </motion.div>
+                }
+
             </Box>
 
         </Box>
