@@ -67,14 +67,14 @@ const Navbar = () => {
                   {isOpen ? <Icon mt={1} as={MdClose} /> : <Icon mt={2} as={GiHamburgerMenu} />}
                 </MenuButton>
                 <MenuList>
-                <Link to='/popular'><MenuItem>Popular 🔥</MenuItem></Link>
-                <Link to='/top_rated'><MenuItem>Top Rated ⭐</MenuItem></Link>
-                <Link to='/upcoming'><MenuItem>Upcoming 🎬</MenuItem></Link>
+                  <Link to='/popular'><MenuItem>Popular 🔥</MenuItem></Link>
+                  <Link to='/top_rated'><MenuItem>Top Rated ⭐</MenuItem></Link>
+                  <Link to='/upcoming'><MenuItem>Upcoming 🎬</MenuItem></Link>
                   {user ?
                     <MenuItem onClick={handleLogout}>Logout 👤</MenuItem>
                     :
                     <Link to='/login'><MenuItem>Login 👤</MenuItem></Link>}
-                    <Link to='/about'><MenuItem>About 🌐</MenuItem></Link>
+                  <Link to='/about'><MenuItem>About 🌐</MenuItem></Link>
                 </MenuList>
               </>
             )}
@@ -125,7 +125,6 @@ const Navbar = () => {
                     <Button w='10vw' fontWeight='normal' fontSize={textSize}>Login 👤</Button>
                   </Link>
                 }
-
               </Box>
               <Spacer />
 

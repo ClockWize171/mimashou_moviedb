@@ -39,6 +39,7 @@ export function AuthContextProvider({ children }) {
 
     function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
+        console.log(provider)
         signInWithPopup(auth, provider)
             .then((result) => {
                 // The signed-in user info.
