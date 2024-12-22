@@ -43,6 +43,7 @@ const MovieDetail = () => {
   const creditURL = `https://api.themoviedb.org/3/movie/${tmdbID}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
   const reviewsURL = `https://api.themoviedb.org/3/movie/${tmdbID}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`
 
+
   useEffect(() => {
     axios.get(contentURL)
       .then((response) => {
@@ -280,7 +281,7 @@ const MovieDetail = () => {
               </Tag>
               <Tag size='sm' borderRadius='sm' variant='subtle' colorScheme='yellow'>
                 <TagLeftIcon boxSize='12px' as={FaStar} />
-                <TagLabel>{content.vote_average}</TagLabel>
+                <TagLabel>{Math.round(content.vote_average *10 )/10}</TagLabel>
               </Tag>
             </HStack>
             <Text fontWeight='bold' pt={3}>

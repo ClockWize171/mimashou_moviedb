@@ -20,7 +20,7 @@ const Upcoming = () => {
   const [pageNum, setPageNum] = useLocalStorage('upcoming-page')
 
   const key = process.env.REACT_APP_TMDB_API_KEY
-  const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US&page=${pageNum}`
+  const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US&page=${pageNum === null ? 1 : pageNum}`
 
   useEffect(() => {
     axios.get(url)
